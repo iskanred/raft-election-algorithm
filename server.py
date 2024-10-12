@@ -118,7 +118,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
                                                                                queue,
                                                                                last_term,
                                                                                len(self.logs)))
-            thread.setDaemon(True)
+            thread.daemon = True
             threads.append(thread)
             if self.state != "candidate":
                 return
@@ -186,7 +186,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
         for _, server_address in self.servers.items():
             # replicate log
             thread = threading.Thread(target=self.send_heartbeat, args=(server_address,))
-            thread.setDaemon(True)
+            thread.daemon = True
             threads.append(thread)
             thread.start()
             # replicate log end
@@ -223,6 +223,8 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
                 self.current_term = result.term
                 self.state = "follower"
                 return
+
+            # print(f"Heartbeat with append entries was sent to {server_address}")
 
             self.on_append_response(follower_address=server_address,
                                     term=result.term,
@@ -308,6 +310,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
             return VoteResponse(term=self.current_term, result=False)
 
     def AppendEntries(self, request: AppendRequest, context):
+        # print(f"Append entries request was received [leader={request.leaderId}, term={request.leaderTerm}]")
         entries = request.entries
         str_entries = []
         for entry in entries:
