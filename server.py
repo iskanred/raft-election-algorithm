@@ -25,8 +25,8 @@ SetValResponse = raft_pb2.SetValResponse
 GetValResponse = raft_pb2.GetValResponse
 LogEntry = raft_pb2.LogEntry
 
-HEARTBEAT_INTERVAL = 50  # ms
-ELECTION_INTERVAL = 300, 600  # ms
+HEARTBEAT_INTERVAL = 200  # ms
+ELECTION_INTERVAL = 500, 800  # ms
 
 
 def parse_server_config(config: str) -> (int, str):
@@ -127,7 +127,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
         for thread in threads:
             thread.join()
 
-        print(f"Votes received", end=" ")
+        print(f"Votes received", end=": ")
         while not queue.empty():
             vote_result = queue.get()
             if vote_result is None:  # if server is not responding
@@ -310,7 +310,6 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
             return VoteResponse(term=self.current_term, result=False)
 
     def AppendEntries(self, request: AppendRequest, context):
-        # print(f"Append entries request was received [leader={request.leaderId}, term={request.leaderTerm}]")
         entries = request.entries
         str_entries = []
         for entry in entries:
