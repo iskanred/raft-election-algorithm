@@ -118,7 +118,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
                                                                                queue,
                                                                                last_term,
                                                                                len(self.logs)))
-            thread.setDaemon(True)
+            thread.daemon = True
             threads.append(thread)
             if self.state != "candidate":
                 return
@@ -186,7 +186,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
         for _, server_address in self.servers.items():
             # replicate log
             thread = threading.Thread(target=self.send_heartbeat, args=(server_address,))
-            thread.setDaemon(True)
+            thread.daemon = True
             threads.append(thread)
             thread.start()
             # replicate log end
