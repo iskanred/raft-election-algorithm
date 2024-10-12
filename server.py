@@ -224,6 +224,8 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
                 self.state = "follower"
                 return
 
+            # print(f"Heartbeat with append entries was sent to {server_address}")
+
             self.on_append_response(follower_address=server_address,
                                     term=result.term,
                                     ack=result.ack,
@@ -307,6 +309,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
             return VoteResponse(term=self.current_term, result=False)
 
     def AppendEntries(self, request: AppendRequest, context):
+        # print(f"Append entries request was received [leader={request.leaderId}, term={request.leaderTerm}]")
         entries = request.entries
         str_entries = []
         for entry in entries:
