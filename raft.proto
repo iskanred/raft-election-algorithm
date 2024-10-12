@@ -1,0 +1,72 @@
+syntax = "proto3";
+// python3 -m grpc_tools.protoc raft.proto --proto_path=. --python_out=. --grpc_python_out=.
+
+service RaftElectionService {
+  rpc RequestVote(VoteRequest) returns (VoteResponse);
+  rpc AppendEntries(AppendRequest) returns (AppendResponse);
+  rpc GetLeader(Void) returns (GetLeaderResponse);
+  rpc Suspend(SuspendRequest) returns (Void);
+  rpc SetVal(KeyValue) returns (SetValResponse);
+  rpc GetVal(Key) returns (GetValResponse);
+}
+
+message VoteRequest {
+  uint64 candidateTerm = 1;
+  uint64 candidateId = 2;
+  uint64 lastLogIndex = 3;
+  uint64 lastLogTerm = 4;
+}
+
+message VoteResponse {
+  uint64 term = 1;
+  bool result = 2;
+}
+
+message AppendRequest {
+  uint64 leaderTerm = 1;
+  uint64 leaderId = 2;
+  uint64 prevLogIndex = 3;
+  uint64 prevLogTerm = 4;
+  repeated LogEntry entries = 5;
+  uint64 leaderCommitIndex = 6;
+}
+
+message AppendResponse {
+  uint64 term = 1;
+  bool success = 2;
+  uint64 ack = 3;
+}
+
+message Void {}
+
+message GetLeaderResponse {
+  uint64 nodeId = 1;
+  string nodeAddress = 2;
+}
+
+message SuspendRequest {
+  uint64 period = 1;
+}
+
+message Key {
+  string key = 1;
+}
+
+message KeyValue {
+  string key = 1;
+  string value = 2;
+}
+
+message LogEntry {
+  KeyValue keyValue = 1;
+  uint64 term = 2;
+}
+
+message SetValResponse {
+  bool success = 1;
+}
+
+message GetValResponse {
+  bool success = 1;
+  string value = 2;
+}
