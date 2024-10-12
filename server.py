@@ -127,7 +127,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
         for thread in threads:
             thread.join()
 
-        print(f"Votes received")
+        print(f"Votes received", end=" ")
         while not queue.empty():
             vote_result = queue.get()
             if vote_result is None:  # if server is not responding
@@ -140,7 +140,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
                 return
             if vote_result.result:
                 number_of_voted += 1
-
+        print(number_of_voted)
         if number_of_voted > (len(self.servers) + 1) / 2:
             self.start_leading()
         else:
@@ -302,6 +302,7 @@ class RaftElectionService(pb_grpc.RaftElectionServiceServicer):
             self.current_vote = candidate_id
             if self.state != "follower":
                 self.start_following()
+            print(f"Voted for: {candidate_id}")
             return VoteResponse(term=self.current_term, result=True)
         else:
             return VoteResponse(term=self.current_term, result=False)
