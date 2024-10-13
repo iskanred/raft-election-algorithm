@@ -78,6 +78,9 @@ current storage info, current leader, current election term, current commit.
 * **SetVal**: a client requests to put some value in our KV storage that will be replicated then.
 * **GetVal**: a client requests to get some value by a key from out KV storage.
 
+The UML diagram of the server's architecture:
+![UML.png](UML.png)
+
 ### Runbook
 #### Server
 To set up a server:
