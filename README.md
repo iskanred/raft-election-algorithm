@@ -54,6 +54,9 @@ To summarize, we have implemented:
 2. Client-side application to interact with the servers' nodes.
 
 ### Implementation
+Firstly, the full implementation is available in this following GitHub repository:
+> https://github.com/iskanred/raft-election-algorithm/
+
 We used **gRPC** protocol for inter-server communication and communication between a client and servers.
 **Protobuf** is used as a messaging protocol.
 
@@ -121,5 +124,6 @@ If you are interested, you can also check our presentation of our solution:
 * [Raft algorithm description with interactive animation](https://raft.github.io/)
 * [Raft algorithm tutorial](https://thesecretlivesofdata.com/raft/) 
 * [Our Raft implementation in GitHub](https://github.com/iskanred/raft-election-algorithm)
+* [GitHub Repo](https://github.com/iskanred/raft-election-algorithm/)
 * [Our video demo](https://drive.google.com/file/d/1WmoABCR_M-zQ9MEbe5QVmKHu7JlvgPLA/view?usp=sharing)
 * [Our presentation](https://docs.google.com/presentation/d/167CMdcotDNh_1SLCEnPaL0eU7bv399L5X8cRSZYs1vw/edit?usp=sharing)
