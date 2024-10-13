@@ -6,10 +6,10 @@ Python implementation of Raft Consensus Protocol for Log Replication in a distri
 
 ##### Authors:
 
-| Name                  | Email                                                                      |
-|-----------------------|----------------------------------------------------------------------------|
-| **Iskander Nafikov**  | [i.nafikov@innopolis.university](mailto:i.nafikov@innopolis.university)    |
-| **Ivan Inchin**       | [i.inchin@innopolis.university](mailto:i.inchin@innopolis.university)      |                                                               |
+| Name                  | Email                                                                      | Github                                        |
+|-----------------------|----------------------------------------------------------------------------|-----------------------------------------------|
+| **Iskander Nafikov**  | [i.nafikov@innopolis.university](mailto:i.nafikov@innopolis.university)    | [iskanred](https://github.com/iskanred)       |
+| **Ivan Inchin**       | [i.inchin@innopolis.university](mailto:i.inchin@innopolis.university)      | [extrabution](https://github.com/Extrabution) |                                                        |
 
 ---
 
